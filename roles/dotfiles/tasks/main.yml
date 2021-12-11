@@ -1,0 +1,41 @@
+---
+- name: Clone dotfiles repo
+  git:
+    dest: "{{ dotfiles_dest }}"
+    repo: "{{ dotfiles_git }}"
+    recursive: yes
+    accept_hostkey: yes
+    track_submodules: yes
+  ignore_errors: yes
+
+- name: Check default zshrc
+  stat:
+    path: ~/.zshrc
+  register: zshrc
+  tags: [dotfiles]
+
+- name: Remove default zshrc
+  file:
+    state: absent
+    dest: ~/.zshrc
+  when: zshrc and zshrc.stat and not zshrc.stat.islnk
+  tags: [dotfiles]
+
+- name: Create common symlinks
+  file:
+    state: link
+    src: "{{ dotfiles_dest }}/_{{ item }}"
+    dest: "~/.{{ item }}"
+  with_items:
+    - fonts
+    - fonts.conf.d
+    - gitconfig
+    - oh-my-zsh
+    - oh-my-zsh_custom
+    - tmux.conf
+    - vim
+    - vimrc
+    - zshrc
+  tags:
+    - dotfiles
+    - tmux

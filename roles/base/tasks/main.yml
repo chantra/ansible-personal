@@ -1,0 +1,17 @@
+---
+- name: Install base packages
+  become: true
+  apt:
+    state: present
+    name:
+      - curl
+      - git
+      - iputils-ping
+      - netcat-openbsd
+      - tmux
+      - traceroute
+      - tcpdump
+      - vim
+      - zsh
+    update_cache: yes
+  tags: [install]

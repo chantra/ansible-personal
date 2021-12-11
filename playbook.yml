@@ -1,0 +1,8 @@
+---
+
+- name: Workstations
+  hosts: workstation
+  roles:
+    - base
+    - workstation
+    - dotfiles

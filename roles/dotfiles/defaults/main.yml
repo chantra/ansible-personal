@@ -1,0 +1,3 @@
+---
+dotfiles_git: "git@github.com:chantra/dotfiles.git"
+dotfiles_dest: "~/.dotfiles"

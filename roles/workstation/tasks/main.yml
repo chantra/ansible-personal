@@ -4,8 +4,16 @@
   snap:
     state: present
     name:
-      - code
       - firefox
       - spotify
       - zoom-client
+  tags: [install]
+
+- name: Install workstation snap packages with classic confinement
+  become: true
+  snap:
+    state: present
+    classic: yes
+    name:
+      - code
   tags: [install]

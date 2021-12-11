@@ -6,6 +6,7 @@
     recursive: yes
     accept_hostkey: yes
     track_submodules: yes
+    version: main
   ignore_errors: yes
 
 - name: Check default zshrc

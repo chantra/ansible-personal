@@ -1,0 +1,28 @@
+---
+- name: Check element keyring
+  stat:
+    path: "{{ element_gpg_file }}"
+  register: element_gpg
+  tags: [element]
+
+- name: Download element GPG
+  become: true
+  get_url:
+    url: "{{ element_gpg_url }}"
+    dest: "{{ element_gpg_file }}"
+  when: element_gpg and element_gpg.stat and not element_gpg.stat.exists
+  tags: [element]
+
+- name: Set up element repository
+  become: true
+  apt_repository:
+    repo: "{{ element_apt_config }}"
+    filename: "{{ element_apt_filename }}"
+    state: present
+    update_cache: yes
+  tags: [element]
+
+- name: Install element
+  become: true
+  apt:
+    pkg: element-desktop

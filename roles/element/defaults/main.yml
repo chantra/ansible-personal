@@ -1,0 +1,5 @@
+---
+element_gpg_file: /usr/share/keyrings/element-io-archive-keyring.gpg
+element_gpg_url: https://packages.element.io/debian/element-io-archive-keyring.gpg
+element_apt_config: "deb [signed-by={{ element_gpg_file }}] https://packages.element.io/debian/ default main"
+element_apt_filename: element-io

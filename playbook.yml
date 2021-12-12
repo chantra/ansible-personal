@@ -1,8 +1,11 @@
 ---
+- hosts: all
+  roles:
+    - base
 
 - name: Workstations
   hosts: workstation
   roles:
-    - base
-    - workstation
+    - role: workstation
+      tags: [workstation]
     - dotfiles

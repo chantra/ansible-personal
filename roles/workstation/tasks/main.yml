@@ -18,11 +18,14 @@
       - code
   tags: [install]
 
-- name: Install dropbox depedencies packages
-  become: true
-  apt:
-    state: present
-    name:
-      - libpango1.0-0
-      - python3-gpg
-  tags: [install]
+- name: Include workstation roles
+  include_role:
+    name: "{{ item }}"
+    apply:
+      tags:
+        - install
+        - "{{ item }}"
+  loop:
+    - dropbox
+    - element
+  tags: [install, dropbox, element]

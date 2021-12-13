@@ -1,20 +1,14 @@
-- name: Install dropbox depedencies packages
+- name: Set up dropbox repository
   become: true
-  apt:
+  apt_repository:
+    repo: "deb [arch=i386,amd64] https://linux.dropbox.com/ubuntu disco main"
+    filename: "dropbox"
     state: present
-    name:
-      - libpango1.0-0
-      - python3-gpg
-
-- name: Check if dropbox is installed
-  command:
-    cmd: dpkg-query -W dropbox
-    creates: /tmp/foo
-  register: dropbox_check_deb
-  failed_when: dropbox_check_deb.rc > 1
+    update_cache: yes
+  tags: [dropbox]
 
 - name: Install dropbox
   become: true
   apt:
-    deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
-  when: dropbox_check_deb.rc == 1
+    pkg: dropbox
+  tags: [dropbox]

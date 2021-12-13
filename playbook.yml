@@ -1,7 +1,8 @@
 ---
 - hosts: all
   roles:
-    - base
+    - role: base
+      tags: [base]
 
 - name: Workstations
   hosts: workstation

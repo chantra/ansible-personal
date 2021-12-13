@@ -12,6 +12,7 @@
       - traceroute
       - tcpdump
       - vim
+      - wireguard
       - zsh
     update_cache: yes
   tags: [install]

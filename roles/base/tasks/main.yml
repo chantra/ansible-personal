@@ -1,18 +1,10 @@
 ---
-- name: Install base packages
-  become: true
-  apt:
-    state: present
-    name:
-      - curl
-      - git
-      - iputils-ping
-      - netcat-openbsd
-      - tmux
-      - traceroute
-      - tcpdump
-      - vim
-      - wireguard
-      - zsh
-    update_cache: yes
-  tags: [install]
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+
+- name: Build package list
+  set_fact:
+    base_packages: "{{ __base_packages + __base_distro_packages }}"
+
+- include_tasks: "setup-{{ ansible_os_family }}.yml"

@@ -1,0 +1,6 @@
+---
+
+__base_distro_packages:
+  - iputils-ping
+  - netcat-openbsd
+  - wireguard

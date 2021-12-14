@@ -8,6 +8,7 @@
     track_submodules: yes
     version: main
   ignore_errors: yes
+  tags: [dotfiles]
 
 - name: Check default zshrc
   stat:
@@ -19,7 +20,7 @@
   file:
     state: absent
     dest: ~/.zshrc
-  when: zshrc and zshrc.stat and not zshrc.stat.islnk
+  when: zshrc.stat.exists and not zshrc.stat.islnk
   tags: [dotfiles]
 
 - name: Create common symlinks

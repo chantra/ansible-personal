@@ -1,0 +1,26 @@
+---
+# Originally using filter /usr/share/flatpak/fedora-flathub.filter
+- name: Remove filter from flathub
+  become: true
+  command:
+    cmd: flatpak remote-modify --no-filter flathub
+  tags: [install]
+    
+- name: Install workstation flatpak packages
+  become: true
+  community.general.flatpak:
+    name:
+      - com.spotify.Client
+      - com.visualstudio.code
+      - us.zoom.Zoom
+    state: present
+  tags: [install]
+
+- name: Install workstation packages
+  become: true
+  dnf:
+    name:
+      - firefox
+    state: present
+  tags: [install]
+

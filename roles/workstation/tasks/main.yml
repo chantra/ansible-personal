@@ -1,22 +1,5 @@
 ---
-- name: Install workstation snap packages
-  become: true
-  snap:
-    state: present
-    name:
-      - firefox
-      - spotify
-      - zoom-client
-  tags: [install]
-
-- name: Install workstation snap packages with classic confinement
-  become: true
-  snap:
-    state: present
-    classic: yes
-    name:
-      - code
-  tags: [install]
+- include_tasks: "setup-{{ ansible_os_family }}.yml"
 
 - name: Include workstation roles
   include_role:

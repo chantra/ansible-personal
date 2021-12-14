@@ -1,0 +1,23 @@
+---
+- name: Set up dropbox repository
+  become: true
+  copy:
+    dest: /etc/yum.repos.d/dropbox.repo
+    content: |
+      [dropbox]
+      name=dropbox
+      baseurl=https://linux.dropbox.com/fedora/$releasever/
+      skip_if_unavailable=True
+      gpgcheck=1
+      gpgkey=https://linux.dropbox.com/fedora/rpm-public-key.asc
+      enabled=1
+    mode: 0644
+    owner: root
+    group: root
+  tags: [dropbox]
+
+- name: Install dropbox
+  become: true
+  dnf:
+    pkg: nautilus-dropbox
+  tags: [dropbox]

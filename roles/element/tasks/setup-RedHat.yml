@@ -1,0 +1,13 @@
+---
+- name: Enable project element of the user taw
+  become: true
+  community.general.copr:
+    state: enabled
+    name: taw/element
+  tags: [element]
+
+- name: Install element package
+  become: true
+  dnf:
+    name: element
+  tags: [element]

@@ -1,0 +1,31 @@
+---
+
+- name: Check google-cloud-sdk keyring
+  stat:
+    path: /usr/share/keyrings/cloud.google.gpg
+  register: google_cloud_sdk_gpg
+  tags: [devenv, google-cloud-sdk]
+
+- name: Download google-cloud-sdk GPG
+  become: true
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: "/usr/share/keyrings/cloud.google.gpg"
+  when: google_cloud_sdk_gpg and google_cloud_sdk_gpg.stat and not google_cloud_sdk_gpg.stat.exists
+  tags: [devenv, google-cloud-sdk]
+
+- name: Set up google-cloud-sdk repository
+  become: true
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
+    filename: "google-cloud-sdk"
+    state: present
+    update_cache: yes
+  tags: [devenv, google-cloud-sdk]
+
+- name: Install google-cloud-sdk
+  become: true
+  apt:
+    pkg: google-cloud-sdk
+  tags: [devenv, google-cloud-sdk]
+

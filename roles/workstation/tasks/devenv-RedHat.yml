@@ -1,0 +1,24 @@
+---
+- name: Set up google-cloud-sdk repository
+  become: true
+  copy:
+    dest: /etc/yum.repos.d/google-cloud-sdk.repo
+    content: |
+      [google-cloud-sdk]
+      name=Google Cloud SDK
+      baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el8-x86_64
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=0
+      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+            https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    mode: 0644
+    owner: root
+    group: root
+  tags: [devenv, google-cloud-sdk]
+
+- name: Install google-cloud-sdk
+  become: true
+  dnf:
+    pkg: google-cloud-sdk
+  tags: [devenv, google-cloud-sdk]

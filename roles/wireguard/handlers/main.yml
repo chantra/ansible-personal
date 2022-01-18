@@ -1,0 +1,7 @@
+---
+- name: restart wireguard
+  become: yes
+  service:
+    name: "wg-quick@{{ wireguard_interface }}"
+    state: restarted
+  listen: "restart wireguard service"

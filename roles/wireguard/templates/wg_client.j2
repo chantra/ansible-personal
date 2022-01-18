@@ -1,0 +1,19 @@
+{% for key, value in wireguard_peers.items() %}
+{% set idx = loop.index0 + 2 %}
+{% if key == inventory_hostname %}
+[Interface]
+Address = {{ wireguard_range_v4 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr(idx) }},{{ wireguard_range_v6 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr(idx) }}
+PrivateKey = {{ value.wg_priv_key}}
+DNS = {{ wireguard_range_v4 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr('1') |  ansible.netcommon.ipaddr('address') }}
+DNS = {{ wireguard_range_v6 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr('1') |  ansible.netcommon.ipaddr('address') }}
+{% endif %}
+{% endfor %}
+
+
+{% for key, value in wireguard_server.items() %}
+# {{ key }}
+[Peer]
+PublicKey = {{ value.wg_pub_key }}
+AllowedIPs = 0.0.0.0/0, ::/0
+Endpoint = {{ hostvars[key]['ansible_host']}}:{{ wireguard_port }}
+{% endfor %}

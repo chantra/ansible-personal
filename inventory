@@ -1,3 +1,5 @@
 [workstation]
 localhost    ansible_connection=local
-surya.localdomain
+surya
+lappy
+worktop

@@ -7,6 +7,12 @@
 - name: Workstations
   hosts: workstation
   roles:
+    - role: devenv
+      tags: [devenv]
     - role: workstation
       tags: [workstation]
     - dotfiles
+
+- hosts: wireguard
+  roles:
+    - wireguard

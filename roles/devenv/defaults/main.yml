@@ -1,0 +1,6 @@
+---
+__devenv_packages:
+  - gcc
+  - make
+  - autoconf
+  - automake

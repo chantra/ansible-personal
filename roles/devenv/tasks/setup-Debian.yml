@@ -1,0 +1,8 @@
+---
+- name: Install common dev tools
+  become: true
+  apt:
+    state: present
+    name: "{{ devenv_packages }}"
+    update_cache: yes
+  tags: [devenv]

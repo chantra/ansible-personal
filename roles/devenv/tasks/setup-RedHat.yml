@@ -1,0 +1,11 @@
+---
+
+- name: Install common dev tools
+  become: true
+  dnf:
+    state: present
+    name: "{{ devenv_packages }}"
+    update_cache: yes
+  tags: [devenv]
+
+  

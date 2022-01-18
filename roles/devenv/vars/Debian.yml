@@ -1,0 +1,5 @@
+---
+
+__devenv_distro_packages:
+  - g++
+  - autotools-dev

@@ -1,0 +1,4 @@
+---
+
+__devenv_distro_packages:
+  - gcc-c++

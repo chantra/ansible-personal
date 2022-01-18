@@ -3,6 +3,7 @@ __base_packages:
   - curl
   - git
   - mosh
+  - openssh-server
   - tmux
   - traceroute
   - tcpdump

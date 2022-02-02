@@ -4,3 +4,5 @@ __devenv_packages:
   - make
   - autoconf
   - automake
+  - libtool
+  - podman

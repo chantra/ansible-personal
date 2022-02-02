@@ -1,5 +1,7 @@
 ---
 
 __devenv_distro_packages:
-  - g++
+  - autopoint
   - autotools-dev
+  - g++
+  - pkg-config

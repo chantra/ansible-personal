@@ -2,3 +2,5 @@
 
 __devenv_distro_packages:
   - gcc-c++
+  - gettext-devel
+  - pkgconfig

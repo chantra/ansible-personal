@@ -5,15 +5,39 @@
   command:
     cmd: flatpak remote-modify --no-filter flathub
   tags: [install]
-    
+
 - name: Install workstation flatpak packages
   become: true
   community.general.flatpak:
     name:
       - com.spotify.Client
-      - com.visualstudio.code
       - us.zoom.Zoom
     state: present
+  tags: [install]
+
+- name: Remove flatpak packages
+  become: true
+  community.general.flatpak:
+    name:
+      - com.visualstudio.code
+    state: absent
+  tags: [install]
+
+- name: Setup VSCode repository
+  become: true
+  copy:
+    dest: /etc/yum.repos.d/vscode.repo
+    content: |
+      [code]
+      name=Visual Studio Code
+      baseurl=https://packages.microsoft.com/yumrepos/vscode
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=0
+      gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+    mode: 0644
+    owner: root
+    group: root
   tags: [install]
 
 - name: Install workstation packages
@@ -21,6 +45,8 @@
   dnf:
     name:
       - firefox
+      - code
     state: present
   tags: [install]
+
 

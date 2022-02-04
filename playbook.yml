@@ -16,3 +16,10 @@
 - hosts: wireguard
   roles:
     - wireguard
+
+- name: DevEnv
+  hosts: devenv
+  roles:
+    - role: devenv
+      tags: [devenv]
+    - dotfiles

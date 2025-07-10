@@ -2,10 +2,10 @@
 {% set idx = loop.index0 + 2 %}
 {% if key == inventory_hostname %}
 [Interface]
-Address = {{ wireguard_range_v4 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr(idx) }},{{ wireguard_range_v6 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr(idx) }}
+Address = {{ wireguard_range_v4 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr(idx) }},{{ wireguard_range_v6 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr(idx) }}
 PrivateKey = {{ value.wg_priv_key}}
-DNS = {{ wireguard_range_v4 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr('1') |  ansible.netcommon.ipaddr('address') }}
-DNS = {{ wireguard_range_v6 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr('1') |  ansible.netcommon.ipaddr('address') }}
+DNS = {{ wireguard_range_v4 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') |  ansible.utils.ipaddr('address') }}
+DNS = {{ wireguard_range_v6 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') |  ansible.utils.ipaddr('address') }}
 {% endif %}
 {% endfor %}
 

@@ -1,14 +1,14 @@
 [Interface]
-Address = {{ wireguard_range_v4 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr('1') }}
-Address = {{ wireguard_range_v6 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr('1') }}
+Address = {{ wireguard_range_v4 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }}
+Address = {{ wireguard_range_v6 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }}
 ListenPort = {{ wireguard_port }}
 PrivateKey = {{ item.value.wg_priv_key}}
 
 {% for key, value in wireguard_peers.items() %}
 {% set idx = loop.index0 + 2 %}
 # {{ key }}
-PostUp = ip neigh add proxy {{ wireguard_range_v6 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr(idx) | ansible.netcommon.ipaddr('address') }} dev {{ ansible_default_ipv6.interface }}
-PostDown = ip neigh del proxy {{ wireguard_range_v6 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr(idx) | ansible.netcommon.ipaddr('address') }} dev {{ ansible_default_ipv6.interface }}
+PostUp = ip neigh add proxy {{ wireguard_range_v6 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr(idx) | ansible.utils.ipaddr('address') }} dev {{ ansible_default_ipv6.interface }}
+PostDown = ip neigh del proxy {{ wireguard_range_v6 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr(idx) | ansible.utils.ipaddr('address') }} dev {{ ansible_default_ipv6.interface }}
 {% endfor %}
 
 {% for key, value in wireguard_peers.items() %}
@@ -16,7 +16,7 @@ PostDown = ip neigh del proxy {{ wireguard_range_v6 | ansible.netcommon.ipaddr('
 # {{ key }}
 [Peer]
 PublicKey = {{ value.wg_pub_key }}
-AllowedIPs = {{ wireguard_range_v4 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr(idx) | ansible.netcommon.ipaddr('address') |  ansible.netcommon.ipsubnet }}
-AllowedIPs = {{ wireguard_range_v6 | ansible.netcommon.ipaddr('net') | ansible.netcommon.ipaddr(idx) | ansible.netcommon.ipaddr('address') |  ansible.netcommon.ipsubnet }}
+AllowedIPs = {{ wireguard_range_v4 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr(idx) | ansible.utils.ipaddr('address') |  ansible.utils.ipsubnet }}
+AllowedIPs = {{ wireguard_range_v6 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr(idx) | ansible.utils.ipaddr('address') |  ansible.utils.ipsubnet }}
 
 {% endfor %}
